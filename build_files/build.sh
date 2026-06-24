@@ -22,7 +22,7 @@ NIRI_PACKAGES=(
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
     gnome-keyring
-    polkit-gnome
+    lxpolkit
     pipewire
     wireplumber
 )
