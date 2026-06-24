@@ -1,4 +1,23 @@
-# image-template
+# KawOS
+
+KawOS is a custom bootc image based on `ghcr.io/rakuos/rakuos-base-nvidia:latest`.
+The current target is a RakuOS NVIDIA system that starts a niri session from GDM.
+
+The published container interface is:
+
+```bash
+ghcr.io/TeoBale/kawos:latest
+```
+
+After the image is built and published, switch a bootc system with:
+
+```bash
+sudo bootc switch ghcr.io/TeoBale/kawos:latest
+```
+
+Reboot, then choose the niri session from GDM.
+
+# Upstream Template Notes
 
 This repository is meant to be a template for building your own custom [bootc](https://github.com/bootc-dev/bootc) image. This template is the recommended way to make customizations to any image published by the Universal Blue Project.
 
@@ -104,10 +123,10 @@ This will show you all the info you need to know about your current image. The i
 
 Change the `IMAGE_NAME` and `REPO_ORGANIZATION` variable inside the `image-template.env`
 
-To commit and push all the files changed and added in step 2 into your Github repository:
+To commit and push the files changed for this image:
 ```bash
-git add Containerfile image-template.env cosign.pub
-git commit -m "Initial Setup"
+git add Containerfile image-template.env build_files/build.sh README.md
+git commit -m "Configure KawOS RakuOS niri image"
 git push
 ```
 Once pushed, go look at the Actions tab on your Github repository's page.  The green checkmark should be showing on the top commit, which means your new image is ready!
@@ -175,7 +194,7 @@ To use it, you must have installed [just](https://just.systems/man/en/introducti
 
 These are all sourced from the `image-template.env` file.
 
-- `image_name`: The name of the image (default: "image-template").
+- `image_name`: The name of the image (default: "kawos").
 - `default_tag`: The default tag for the image (default: "latest").
 - `bib_image`: The Bootc Image Builder (BIB) image (default: "quay.io/centos-bootc/bootc-image-builder:latest").
 

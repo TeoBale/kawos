@@ -5,23 +5,41 @@ set -ouex pipefail
 # Copy the contents of system_files/ of the git repo to /
 cp -avf "/ctx/system_files"/. /
 
-### Install packages
+if command -v dnf5.real >/dev/null 2>&1; then
+    DNF="dnf5.real"
+else
+    DNF="dnf5"
+fi
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
+NIRI_PACKAGES=(
+    gdm
+    niri
+    xwayland-satellite
+    alacritty
+    fuzzel
+    waybar
+    mako
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    gnome-keyring
+    polkit-gnome
+    pipewire
+    wireplumber
+)
 
-# this installs a package from fedora repos
-dnf5 install -y tmux
+"${DNF}" install -y "${NIRI_PACKAGES[@]}"
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+systemctl enable gdm.service
 
-#### Example for enabling a System Unit File
+PROTECTED_PACKAGES="/usr/share/rakuos/protected-packages.txt"
+if [[ -f "${PROTECTED_PACKAGES}" ]]; then
+    {
+        echo
+        echo "# KawOS niri session packages"
+        printf '%s\n' "${NIRI_PACKAGES[@]}"
+    } >> "${PROTECTED_PACKAGES}"
+fi
 
-systemctl enable podman.socket
+if [[ -x /usr/libexec/rakuos/generate-base-manifest ]]; then
+    /usr/libexec/rakuos/generate-base-manifest
+fi
