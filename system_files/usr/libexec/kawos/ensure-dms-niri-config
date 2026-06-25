@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/niri"
+readonly config_file="${config_dir}/config.kdl"
+readonly dms_dir="${config_dir}/dms"
+readonly seed_config="/usr/share/kawos/dms/niri-config.kdl"
+
+mkdir -p "${dms_dir}"
+touch \
+    "${dms_dir}/colors.kdl" \
+    "${dms_dir}/layout.kdl" \
+    "${dms_dir}/alttab.kdl" \
+    "${dms_dir}/binds.kdl"
+
+if [[ ! -f "${config_file}" ]]; then
+    if [[ -f "${seed_config}" ]]; then
+        cp "${seed_config}" "${config_file}"
+    else
+        touch "${config_file}"
+    fi
+fi
+
+for include_file in colors layout alttab binds; do
+    include_line="include \"dms/${include_file}.kdl\""
+    if ! grep -Fqx "${include_line}" "${config_file}"; then
+        printf '\n%s\n' "${include_line}" >> "${config_file}"
+    fi
+done
+
+if grep -Eq '^[[:space:]]*spawn-at-startup[[:space:]]+"waybar"([[:space:]]|$)' "${config_file}"; then
+    tmp_config="$(mktemp "${config_file}.tmp.XXXXXX")"
+    awk '
+        /^[[:space:]]*spawn-at-startup[[:space:]]+"waybar"[[:space:]]*$/ {
+            sub(/spawn-at-startup[[:space:]]+"waybar"/, "// spawn-at-startup \"waybar\" disabled by KawOS Dank Linux session")
+        }
+        { print }
+    ' "${config_file}" > "${tmp_config}"
+    mv "${tmp_config}" "${config_file}"
+fi

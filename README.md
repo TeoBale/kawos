@@ -1,7 +1,9 @@
 # KawOS
 
 KawOS is a custom bootc image based on `ghcr.io/rakuos/rakuos-base-nvidia:latest`.
-The current target is a RakuOS NVIDIA system that starts a niri session from GDM.
+The current target is a RakuOS NVIDIA system with GNOME and Dank Linux sessions selectable from GDM.
+
+Dank Linux is provided as a niri session running DankMaterialShell (DMS) with the core suite utilities. GDM remains the display manager, so the login screen can switch between GNOME and Dank Linux without enabling DMS inside GNOME.
 
 The published container interface is:
 
@@ -15,7 +17,7 @@ After the image is built and published, switch a bootc system with:
 sudo bootc switch ghcr.io/TeoBale/kawos:latest
 ```
 
-Reboot, then choose the niri session from GDM.
+Reboot, then choose either GNOME or Dank Linux from GDM.
 
 # Upstream Template Notes
 

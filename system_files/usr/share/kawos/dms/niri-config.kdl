@@ -1,0 +1,23 @@
+environment {
+    QT_QPA_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
+
+prefer-no-csd
+
+layout {
+    gaps 5
+    background-color "transparent"
+}
+
+spawn-at-startup "bash" "-lc" "wl-paste --watch cliphist store"
+
+binds {
+    Mod+Return { spawn "alacritty"; }
+    Mod+Shift+E { quit; }
+}
+
+include "dms/colors.kdl"
+include "dms/layout.kdl"
+include "dms/alttab.kdl"
+include "dms/binds.kdl"

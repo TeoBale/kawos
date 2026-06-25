@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+/usr/libexec/kawos/ensure-dms-niri-config
+
+exec niri-session

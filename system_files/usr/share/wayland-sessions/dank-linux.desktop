@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Dank Linux
+Comment=Run niri with DankMaterialShell
+Exec=/usr/libexec/kawos/dank-niri-session
+Type=Application
+DesktopNames=DankLinux;niri
