@@ -15,8 +15,11 @@ if ! "${DNF}" copr --help >/dev/null 2>&1; then
     "${DNF}" install -y dnf5-plugins
 fi
 
-"${DNF}" copr enable -y avengemedia/danklinux
-"${DNF}" copr enable -y avengemedia/dms
+source /usr/lib/os-release
+COPR_CHROOT="fedora-${VERSION_ID}-$(uname -m)"
+
+"${DNF}" copr enable -y avengemedia/danklinux "${COPR_CHROOT}"
+"${DNF}" copr enable -y avengemedia/dms "${COPR_CHROOT}"
 
 KAWOS_DESKTOP_PACKAGES=(
     gdm
