@@ -155,10 +155,15 @@ jobs:
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
           DIGEST: ${{ steps.push-image.outputs.digest }}
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [[ -z "${COSIGN_PRIVATE_KEY}" ]]; then
             echo "SIGNING_SECRET is not configured; skipping image signing."
             exit 0
           fi
+
+          printf '%s\n' "${REGISTRY_TOKEN}" | cosign login ghcr.io \
+            --username "${{ github.actor }}" \
+            --password-stdin
 
           cosign sign -y --key env://COSIGN_PRIVATE_KEY ${IMAGE_REGISTRY}/${IMAGE_NAME}@${DIGEST}
