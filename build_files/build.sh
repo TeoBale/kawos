@@ -141,6 +141,11 @@ if ! "${DNF}" install -y "${DANK_SEARCH_PACKAGE}"; then
     "${DNF}" install -y "${DANK_SEARCH_PACKAGE}"
 fi
 
+# DMS currently pulls Alacritty back in through a weak dependency. Remove the
+# RPM explicitly, then restore KawOS's compatibility command backed by Ghostty.
+"${DNF}" --setopt=clean_requirements_on_remove=False remove -y alacritty
+install -Dm0755 /ctx/system_files/usr/bin/alacritty /usr/bin/alacritty
+
 if [[ -f /usr/share/wayland-sessions/niri.desktop ]]; then
     mv -f /usr/share/wayland-sessions/niri.desktop /usr/share/wayland-sessions/niri.desktop.kawos-hidden
 fi
