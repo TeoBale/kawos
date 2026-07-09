@@ -1,6 +1,10 @@
 environment {
     QT_QPA_PLATFORM "wayland"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+    TERMINAL "ghostty"
+    BROWSER "helium"
+    EDITOR "nvim"
+    VISUAL "nvim"
 }
 
 prefer-no-csd
@@ -13,7 +17,7 @@ layout {
 spawn-at-startup "bash" "-lc" "wl-paste --watch cliphist store"
 
 binds {
-    Mod+Return { spawn "alacritty"; }
+    Mod+Return { spawn "ghostty"; }
     Mod+Shift+E { quit; }
 }
 

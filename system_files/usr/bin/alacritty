@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Compatibility for KawOS user configs created before Ghostty became the
+# default terminal. This keeps old niri/DMS bindings working across upgrades.
+exec /usr/bin/ghostty "$@"

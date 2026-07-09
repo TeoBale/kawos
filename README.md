@@ -5,6 +5,15 @@ The current target is a RakuOS NVIDIA system with GNOME and Dank Linux sessions 
 
 Dank Linux is provided as a niri session running DankMaterialShell (DMS) with the core suite utilities. GDM remains the display manager, so the login screen can switch between GNOME and Dank Linux without enabling DMS inside GNOME.
 
+KawOS also ships a native, image-managed application baseline:
+
+- Ghostty is the default terminal in Dank Linux and for `xdg-terminal-exec`.
+- Zed stable is installed as the graphical IDE with its `zed` CLI.
+- Helium is the default browser for HTTP, HTTPS, and HTML.
+- Neovim is the default terminal editor through `EDITOR` and `VISUAL`.
+
+These applications are part of the bootc deployment rather than first-boot Flatpak installs, so they are available offline after installation and move forward or backward with the operating-system image. User-level application and MIME preferences still take precedence over the KawOS defaults.
+
 The published container interface is:
 
 ```bash
