@@ -5,6 +5,10 @@ The current target is a RakuOS NVIDIA system with GNOME and Dank Linux sessions 
 
 Dank Linux is provided as a niri session running DankMaterialShell (DMS) with the core suite utilities. GDM remains the display manager, so the login screen can switch between GNOME and Dank Linux without enabling DMS inside GNOME.
 
+KawOS also includes Nautilus and the stable Zed IDE. Ghostty is the default
+terminal for Dank Linux and `xdg-terminal-exec`; Alacritty is not installed in
+the image.
+
 The published container interface is:
 
 ```bash

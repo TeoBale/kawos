@@ -39,3 +39,9 @@ if grep -Eq '^[[:space:]]*spawn-at-startup[[:space:]]+"waybar"([[:space:]]|$)' "
     ' "${config_file}" > "${tmp_config}"
     mv "${tmp_config}" "${config_file}"
 fi
+
+# Migrate the exact terminal binding shipped by older KawOS images. Other
+# user-defined Alacritty commands are left untouched.
+sed -i \
+    's/Mod+Return { spawn "alacritty"; }/Mod+Return { spawn "ghostty"; }/' \
+    "${config_file}"
